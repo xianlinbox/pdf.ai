@@ -1,5 +1,6 @@
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from app.chat.vector_store.pinecone import vector_store
 
 
 def create_embeddings_for_pdf(pdf_id: str, pdf_path: str):
@@ -7,4 +8,4 @@ def create_embeddings_for_pdf(pdf_id: str, pdf_path: str):
     loader = PyPDFLoader(file_path=pdf_path)
     texts = loader.load_and_split(text_splitter=text_splitter)
 
-    print(texts)
+    vector_store.add_documents(texts)
