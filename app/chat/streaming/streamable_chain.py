@@ -1,9 +1,8 @@
 from typing import Any, Dict, Iterator
-from langchain.chains import LLMChain
 from langchain_core.runnables.config import RunnableConfig
 
 
-class StreamChain(LLMChain):
+class StreamableChain:
 
     def stream(
         self,
