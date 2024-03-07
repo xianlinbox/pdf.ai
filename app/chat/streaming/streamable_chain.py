@@ -1,6 +1,7 @@
 from typing import Any, Dict, Iterator
-from app.chat.streaming.stream_handler import StreamCallbackHandler
 from queue import Queue
+from app.chat.streaming.stream_handler import StreamCallbackHandler
+from app.chat.streaming.stream_handler import END_SIGNAL
 
 
 class StreamableChain:
@@ -14,4 +15,7 @@ class StreamableChain:
         self(input, callback=[stream_callback])
 
         while True:
+            token = token_queue.get()
+            if token == END_SIGNAL:
+                break
             yield token_queue.get()

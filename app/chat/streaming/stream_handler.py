@@ -3,6 +3,8 @@ from uuid import UUID
 from queue import Queue
 from langchain.callbacks.base import BaseCallbackHandler
 
+END_SIGNAL = "--Done--"
+
 
 class StreamCallbackHandler(BaseCallbackHandler):
     queue: Queue
@@ -16,8 +18,8 @@ class StreamCallbackHandler(BaseCallbackHandler):
 
     def on_llm_end(self, **kwargs: Any) -> Any:
         print("the LLM has finished current stream")
-        self.queue.put("--Done--")
+        self.queue.put(END_SIGNAL)
 
     def on_llm_error(self, error: BaseException, **kwargs: Any) -> Any:
         print("the LLM met an error: %s", error)
-        self.queue.put("--Done--")
+        self.queue.put(END_SIGNAL)
