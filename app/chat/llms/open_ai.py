@@ -3,4 +3,4 @@ from app.chat.models import ChatArgs
 
 
 def build_llms(chat_args: ChatArgs):
-    return ChatOpenAI()
+    return ChatOpenAI(streaming=chat_args.streaming)
