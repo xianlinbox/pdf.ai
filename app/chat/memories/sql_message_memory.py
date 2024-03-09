@@ -36,3 +36,6 @@ def build_memory(chat_args: ChatArgs):
         input_key="chat_history",
         output_key="answer",
     )
+
+
+memories_map = {"sql_buffer_memory": build_memory}
