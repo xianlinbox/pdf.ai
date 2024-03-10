@@ -1,6 +1,10 @@
 from .redis import redis_client
 
 
+def weighted_pick_component(component_type, component_map):
+    pass
+
+
 def score_conversation(
     conversation_id: str, score: float, llm: str, retriever: str, memory: str
 ) -> None:

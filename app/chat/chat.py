@@ -6,13 +6,14 @@ from app.chat.vector_store.pinecone import retrievers_map
 from app.chat.memories.sql_message_memory import memories_map
 from app.chat.llms.open_ai import llms_map
 from app.chat.streaming.conversational_stream_chain import CoversationalStreamableChain
+from .score import weighted_pick_component
 
 
 def select_component(type, component_map: map, chat_args: ChatArgs):
     components_in_use = get_conversation_components(chat_args.conversation_id)
     component_name = components_in_use[type]
     if component_name is None:
-        component_picked_name = random.choice(list(component_map.keys()))
+        component_picked_name = weighted_pick_component(type, component_map)
         return component_picked_name, component_map[component_picked_name](chat_args)
     return component_name, component_map[component_name](chat_args)
 
