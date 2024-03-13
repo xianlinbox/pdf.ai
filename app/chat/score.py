@@ -1,8 +1,16 @@
 from .redis import redis_client
 
 
-def weighted_pick_component(component_type, component_map):
-    pass
+def weighted_pick_component(component_type, component_map: map):
+    average_scores = {}
+    values = redis_client.hgetall(f"{component_type}_score_values")
+    counts = redis_client.hgetall(f"{component_type}_score_count")
+
+    for name in component_map.keys():
+        score = values.get(name)
+        count = counts.get(name)
+        average_score = score / count
+        average_scores[name] = average_score
 
 
 def score_conversation(
