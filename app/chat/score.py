@@ -1,3 +1,4 @@
+import random
 from .redis import redis_client
 
 
@@ -11,6 +12,13 @@ def weighted_pick_component(component_type, component_map: map):
         count = counts.get(name)
         average_score = score / count
         average_scores[name] = average_score
+
+    average_score_total = sum(average_scores.values())
+    random_value = random.uniform(0, average_score_total)
+    cumulative = 0
+    for name, score in average_scores.items():
+        if random_value < cumulative + score:
+            return name
 
 
 def score_conversation(
