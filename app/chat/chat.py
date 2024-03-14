@@ -3,7 +3,7 @@ from langchain.chat_models import ChatOpenAI
 from app.chat.models import ChatArgs
 from app.web.api import get_conversation_components, set_conversation_components
 from app.chat.vector_store.pinecone import retrievers_map
-from app.chat.memories.sql_message_memory import memories_map
+from app.chat.memories import memories_map
 from app.chat.llms.open_ai import llms_map
 from app.chat.streaming.conversational_stream_chain import CoversationalStreamableChain
 from .score import weighted_pick_component

@@ -1,8 +1,5 @@
 from langchain.schema import BaseChatMessageHistory
 from langchain_core.messages import BaseMessage
-from langchain.memory import ConversationBufferMemory
-from app.chat.models import ChatArgs
-
 from app.web.api import get_messages_by_conversation_id, add_message_to_conversation
 
 
@@ -27,15 +24,3 @@ class SqlMessageHistory(BaseChatMessageHistory):
 
     def clear(self) -> None:
         return super().clear()
-
-
-def build_memory(chat_args: ChatArgs):
-    return ConversationBufferMemory(
-        chat_memory=SqlMessageHistory(conversation_id=chat_args.conversation_id),
-        return_messages=True,
-        input_key="chat_history",
-        output_key="answer",
-    )
-
-
-memories_map = {"sql_buffer_memory": build_memory}
