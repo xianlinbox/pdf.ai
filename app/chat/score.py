@@ -56,4 +56,15 @@ def get_scores():
         }
     """
 
-    pass
+    scores = {"llm": {}, "retriever": {}, "memory": {}}
+
+    for component_type in scores.keys:
+        values = redis_client.hgetall(f"{component_type}_score_values")
+        counts = redis_client.hgetall(f"{component_type}_score_count")
+        for name in values.keys():
+            score = values.get(name)
+            count = counts.get(name)
+            average_score = score / count
+            score[component_type][name] = average_score
+
+    return scores
