@@ -38,5 +38,9 @@ def build_chat(chat_args: ChatArgs):
     )
     condense_llm = ChatOpenAI(streaming=False)
     return CoversationalStreamableChain.from_llm(
-        memory=memory, retriever=retriever, llm=llm, condense_question_llm=condense_llm
+        memory=memory,
+        retriever=retriever,
+        llm=llm,
+        condense_question_llm=condense_llm,
+        meta_data=chat_args.metadata,
     )
